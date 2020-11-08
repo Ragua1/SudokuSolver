@@ -45,11 +45,7 @@ namespace Sudoku.ViewModels
             {
                 lock (_lock)
                 {
-                    if (_instance == null)
-                    {
-                        _instance = new MainViewModel();
-                        _instance.InitClass();
-                    }
+                    _instance ??= new MainViewModel();
                 }
             }
 
@@ -62,40 +58,49 @@ namespace Sudoku.ViewModels
             StatusMsg = "New game.";
         }
 
-        internal async Task SolveGame()
+        internal async Task SolveGameAsync()
         {
             if (CurrentGameViewModel is GameViewModel viewModel)
             {
-                StatusMsg = await viewModel.Solve()
-                    ? "Game solved."
-                    : "Game cannot be solved.";
+                StatusMsg = "Trying find a solution.";
+                var gameModel = new GameViewModel(viewModel.Arena.Clone());
+
+                if (await gameModel.SolveAsync().ConfigureAwait(true))
+                {
+                    StatusMsg = "Game solved.";
+                    CurrentGameViewModel = gameModel;
+                }
+                else
+                {
+                    StatusMsg = "Game cannot be solved.";
+                }
             }
         }
 
-        internal async Task SaveGame()
+        internal async Task SaveGameAsync()
         {
             if (CurrentGameViewModel is GameViewModel viewModel)
             {
-                StatusMsg = await viewModel.Save()
+                StatusMsg = "Select file.";
+
+                StatusMsg = await viewModel.SaveAsync().ConfigureAwait(true)
                     ? "Game saved."
                     : "Game cannot be saved.";
             }
         }
 
-        internal async Task LoadGame()
+        internal async Task LoadGameAsync()
         {
             NewGame();
 
             if (CurrentGameViewModel is GameViewModel viewModel)
             {
-                StatusMsg = await viewModel.Load() 
+                StatusMsg = "Select file.";
+
+                StatusMsg = await viewModel.LoadAsync().ConfigureAwait(true) 
                         ? "Game loaded." 
                         : "Game cannot be loaded.";
             }
-        }
-
-        private void InitClass()
-        {
         }
     }
 }

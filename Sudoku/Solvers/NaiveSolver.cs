@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
-using Sudoku.Base;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Sudoku.DataClasses;
 using Sudoku.Enums;
 
 namespace Sudoku.Solvers
@@ -8,13 +10,14 @@ namespace Sudoku.Solvers
     {
         private const int MATRIX_SIZE = 9;
 
-        public CellClass[,] Solution { get; set; }
+        private static readonly Random _rand = new Random();
 
-        public async Task<bool> Resolve(CellClass[,] model)
+        public SudokuArena Solution { get; set; }
+
+        public async Task<bool> ResolveAsync(SudokuArena arena)
         {
-            var arena = (CellClass[,]) model.Clone();
 
-            if (!CheckModel(model))
+            if (!CheckModel(arena))
             {
                 return false;
             }
@@ -22,13 +25,13 @@ namespace Sudoku.Solvers
             if (SolveSudoku(arena, 0, 0))
             {
                 Solution = arena;
-                return await Task.FromResult(true);
+                return await Task.FromResult(true).ConfigureAwait(true);
             }
 
             return false;
         }
 
-        private static bool SolveSudoku(CellClass[,] model, int row, int col)
+        private static bool SolveSudoku(SudokuArena arena, int row, int col)
         {
             while (true)
             {
@@ -46,43 +49,66 @@ namespace Sudoku.Solvers
                 }
 
                 // move next if value founded
-                if (model[col, row].Value != 0)
+                if (arena.Model[col, row].Value != CellValue.None)
                 {
                     col += 1;
                     continue;
                 }
 
-                for (var num = CellValue.V1; num <= CellValue.V9; num++)
+                var values = Enum.GetValues(typeof(CellValue)).Cast<CellValue>().Where(e => e > CellValue.None).ToList();
+                while (values.Any())
                 {
+                    var num = values[_rand.Next(values.Count)];
+
                     // check value possibility
-                    if (CheckModel(model, row, col, num))
+                    if (CheckModel(arena, row, col, num))
                     {
-                        model[col, row].Value = num;
+                        arena.Model[col, row].Value = num;
 
                         // Check next positions
-                        if (SolveSudoku(model, row, col + 1))
+                        if (SolveSudoku(arena, row, col + 1))
                         {
                             return true;
                         }
                     }
 
                     // remove the assigned num 
-                    model[col, row].Value = 0;
+                    values.Remove(num);
+                    arena.Model[col, row].Value = CellValue.None;
                 }
+
+                //for (var num = CellValue.V1; num <= CellValue.V9; num++)
+                //{
+                //    // check value possibility
+                //    if (CheckModel(arena, row, col, num))
+                //    {
+                //        arena.Model[col, row].Value = num;
+
+                //        // Check next positions
+                //        if (SolveSudoku(arena, row, col + 1))
+                //        {
+                //            return true;
+                //        }
+                //    }
+
+                //    // remove the assigned num 
+                //    arena.Model[col, row].Value = CellValue.None;
+                //}
 
                 return false;
             }
         }
 
-        private static bool CheckModel(CellClass[,] model)
+        // check all model
+        private static bool CheckModel(SudokuArena arena)
         {
             for (var row = 0; row < MATRIX_SIZE; row++)
             {
                 for (var col = 0; col < MATRIX_SIZE; col++)
                 {
-                    var num = model[col, row].Value;
+                    var num = arena.Model[col, row].Value;
 
-                    if (num > 0 && !CheckModel(model, row, col, num))
+                    if (num > 0 && !CheckModel(arena, row, col, num))
                     {
                         return false;
                     }
@@ -92,12 +118,13 @@ namespace Sudoku.Solvers
             return true;
         }
 
-        private static bool CheckModel(CellClass[,] model, int row, int col, CellValue num)
+        // check cell
+        private static bool CheckModel(SudokuArena arena, int row, int col, CellValue num)
         {
             // check row for same value
-            for (var x = 0; x < 8; x++)
+            for (var x = 0; x <= 8; x++)
             {
-                if (x != col && model[x, row].Value == num)
+                if (x != col && arena.Model[x, row].Value == num)
                 {
                     return false;
                 }
@@ -106,7 +133,7 @@ namespace Sudoku.Solvers
             // check column for same value
             for (var x = 0; x <= 8; x++)
             {
-                if (x != row && model[col, x].Value == num)
+                if (x != row && arena.Model[col, x].Value == num)
                 {
                     return false;
                 }
@@ -119,7 +146,7 @@ namespace Sudoku.Solvers
                 for (var j = 0; j < 3; j++)
                 {
                     int cRow = j + startRow, cCol = i + startCol;
-                    if (model[cCol, cRow].Value == num)
+                    if (arena.Model[cCol, cRow].Value == num)
                     {
                         if (cCol == col && cRow == row)
                         {

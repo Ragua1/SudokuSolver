@@ -33,19 +33,28 @@ namespace Sudoku
             ViewModel?.NewGame();
         }
 
-        private void Solve_Click(object sender, RoutedEventArgs e)
+        private async void Solve_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel?.SolveGame();
+            if (ViewModel != null)
+            {
+                await ViewModel.SolveGameAsync().ConfigureAwait(true);
+            }
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel?.SaveGame();
+            if (ViewModel != null)
+            {
+                await ViewModel.SaveGameAsync().ConfigureAwait(true);
+            }
         }
 
-        private void Load_Click(object sender, RoutedEventArgs e)
+        private async void Load_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel?.LoadGame();
+            if (ViewModel != null)
+            {
+                await ViewModel.LoadGameAsync().ConfigureAwait(true);
+            }
         }
     }
 }
