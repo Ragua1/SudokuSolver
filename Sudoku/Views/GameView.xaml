@@ -93,32 +93,32 @@
         <ContentControl
             Grid.Column="0"
             Grid.Row="0"
-            Content="{Binding Path=Cell00}"
+            Content="{Binding Path=Cells[0]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
             Grid.Column="1"
             Grid.Row="0"
-            Content="{Binding Path=Cell10}"
+            Content="{Binding Path=Cells[9]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
             Grid.Column="2"
             Grid.Row="0"
-            Content="{Binding Path=Cell20}"
+            Content="{Binding Path=Cells[18]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
             Grid.Column="0"
             Grid.Row="1"
-            Content="{Binding Path=Cell01}"
+            Content="{Binding Path=Cells[1]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
             Grid.Column="1"
             Grid.Row="1"
-            Content="{Binding Path=Cell11}"
+            Content="{Binding Path=Cells[10]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
             Grid.Column="2"
             Grid.Row="1"
-            Content="{Binding Path=Cell21}"
+            Content="{Binding Path=Cells[19]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
             Grid.Column="0"

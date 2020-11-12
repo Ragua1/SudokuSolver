@@ -1,17 +1,16 @@
 ﻿using System.Threading.Tasks;
 using Sudoku.Base;
-using Sudoku.Interfaces;
 
 namespace Sudoku.ViewModels
 {
-    public class MainViewModel : ObservableObject, IViewModel
+    public class MainViewModel : ObservableObject
     {
-        private static readonly object _lock = new object();
-        private static MainViewModel _instance;
-        private IViewModel _currentGameViewModel;
+        private GameViewModel _currentGameViewModel;
         private string _statusMsg;
 
-        public IViewModel CurrentGameViewModel
+        public static readonly MainViewModel Instance = new MainViewModel();
+
+        public GameViewModel CurrentGameViewModel
         {
             get => _currentGameViewModel;
             set
@@ -39,19 +38,6 @@ namespace Sudoku.ViewModels
             }
         }
 
-        public static MainViewModel GetInstance()
-        {
-            if (_instance == null)
-            {
-                lock (_lock)
-                {
-                    _instance ??= new MainViewModel();
-                }
-            }
-
-            return _instance;
-        }
-
         internal void NewGame()
         {
             CurrentGameViewModel = new GameViewModel();
@@ -60,10 +46,10 @@ namespace Sudoku.ViewModels
 
         internal async Task SolveGameAsync()
         {
-            if (CurrentGameViewModel is GameViewModel viewModel)
+            if (CurrentGameViewModel != null)
             {
                 StatusMsg = "Trying find a solution.";
-                var gameModel = new GameViewModel(viewModel.Arena.Clone());
+                var gameModel = CurrentGameViewModel.Clone();
 
                 if (await gameModel.SolveAsync().ConfigureAwait(true))
                 {
@@ -79,11 +65,11 @@ namespace Sudoku.ViewModels
 
         internal async Task SaveGameAsync()
         {
-            if (CurrentGameViewModel is GameViewModel viewModel)
+            if (CurrentGameViewModel != null)
             {
                 StatusMsg = "Select file.";
 
-                StatusMsg = await viewModel.SaveAsync().ConfigureAwait(true)
+                StatusMsg = await CurrentGameViewModel.SaveAsync().ConfigureAwait(true)
                     ? "Game saved."
                     : "Game cannot be saved.";
             }
@@ -93,11 +79,11 @@ namespace Sudoku.ViewModels
         {
             NewGame();
 
-            if (CurrentGameViewModel is GameViewModel viewModel)
+            if (CurrentGameViewModel != null)
             {
                 StatusMsg = "Select file.";
 
-                StatusMsg = await viewModel.LoadAsync().ConfigureAwait(true) 
+                StatusMsg = await CurrentGameViewModel.LoadAsync().ConfigureAwait(true) 
                         ? "Game loaded." 
                         : "Game cannot be loaded.";
             }

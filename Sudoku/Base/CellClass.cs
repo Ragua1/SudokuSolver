@@ -4,7 +4,7 @@ namespace Sudoku.Base
 {
     public class CellClass : ObservableObject
     {
-        private CellValue _value = CellValue.None;
+        private CellValue _value;
 
         public CellValue Value
         {
@@ -17,6 +17,16 @@ namespace Sudoku.Base
                     OnPropertyChanged();
                 }
             }
+        }
+
+        public CellClass(CellValue value = CellValue.None)
+        {
+            this._value = value;
+        }
+
+        public CellClass Clone()
+        {
+            return new CellClass(_value);
         }
     }
 }

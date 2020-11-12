@@ -1,48 +1,50 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using Sudoku.DataClasses;
 using Sudoku.Enums;
+using Sudoku.Interfaces;
 
 namespace Sudoku.Solvers
 {
-    public class NaiveSolver
+    public class NaiveSolver : ISolver
     {
-        private const int MATRIX_SIZE = 9;
-
         private static readonly Random _rand = new Random();
 
-        public SudokuArena Solution { get; set; }
+        public IArena Solution { get; set; }
 
-        public async Task<bool> ResolveAsync(SudokuArena arena)
+        public async Task<bool> ResolveAsync(IArena arena)
         {
+            var checkTask = Task.Run(() => !CheckModel(arena));
+            var solveTask = Task.Run(() => SolveSudoku(arena, 0, 0));
 
-            if (!CheckModel(arena))
+            if (await checkTask.ConfigureAwait(false))
             {
                 return false;
             }
 
-            if (SolveSudoku(arena, 0, 0))
+            if (await solveTask.ConfigureAwait(false))
             {
                 Solution = arena;
-                return await Task.FromResult(true).ConfigureAwait(true);
+                return true;
             }
 
             return false;
         }
 
-        private static bool SolveSudoku(SudokuArena arena, int row, int col)
+        private static bool SolveSudoku(IArena arena, int row, int col)
         {
+            Thread.Sleep(1);
             while (true)
             {
                 // avoid backtracking
-                if (row == MATRIX_SIZE - 1 && col == MATRIX_SIZE)
+                if (row == arena.GridSize - 1 && col == arena.GridSize)
                 {
                     return true;
                 }
 
                 // set new row if end of line
-                if (col == MATRIX_SIZE)
+                if (col == arena.GridSize)
                 {
                     row++;
                     col = 0;
@@ -59,11 +61,12 @@ namespace Sudoku.Solvers
                 while (values.Any())
                 {
                     var num = values[_rand.Next(values.Count)];
+                    var cell = arena.Model[col, row];
 
                     // check value possibility
                     if (CheckModel(arena, row, col, num))
                     {
-                        arena.Model[col, row].Value = num;
+                        cell.Value = num;
 
                         // Check next positions
                         if (SolveSudoku(arena, row, col + 1))
@@ -74,37 +77,19 @@ namespace Sudoku.Solvers
 
                     // remove the assigned num 
                     values.Remove(num);
-                    arena.Model[col, row].Value = CellValue.None;
+                    cell.Value = CellValue.None;
                 }
-
-                //for (var num = CellValue.V1; num <= CellValue.V9; num++)
-                //{
-                //    // check value possibility
-                //    if (CheckModel(arena, row, col, num))
-                //    {
-                //        arena.Model[col, row].Value = num;
-
-                //        // Check next positions
-                //        if (SolveSudoku(arena, row, col + 1))
-                //        {
-                //            return true;
-                //        }
-                //    }
-
-                //    // remove the assigned num 
-                //    arena.Model[col, row].Value = CellValue.None;
-                //}
 
                 return false;
             }
         }
 
         // check all model
-        private static bool CheckModel(SudokuArena arena)
+        private static bool CheckModel(IArena arena)
         {
-            for (var row = 0; row < MATRIX_SIZE; row++)
+            for (var row = 0; row < arena.GridSize; row++)
             {
-                for (var col = 0; col < MATRIX_SIZE; col++)
+                for (var col = 0; col < arena.GridSize; col++)
                 {
                     var num = arena.Model[col, row].Value;
 
@@ -119,10 +104,10 @@ namespace Sudoku.Solvers
         }
 
         // check cell
-        private static bool CheckModel(SudokuArena arena, int row, int col, CellValue num)
+        private static bool CheckModel(IArena arena, int row, int col, CellValue num)
         {
             // check row for same value
-            for (var x = 0; x <= 8; x++)
+            for (var x = 0; x < arena.GridSize; x++)
             {
                 if (x != col && arena.Model[x, row].Value == num)
                 {
@@ -131,7 +116,7 @@ namespace Sudoku.Solvers
             }
 
             // check column for same value
-            for (var x = 0; x <= 8; x++)
+            for (var x = 0; x < arena.GridSize; x++)
             {
                 if (x != row && arena.Model[col, x].Value == num)
                 {
@@ -140,10 +125,10 @@ namespace Sudoku.Solvers
             }
 
             // check matrix for same value
-            int startRow = row - row % 3, startCol = col - col % 3;
-            for (var i = 0; i < 3; i++)
+            int startRow = row - row % arena.RegionSize, startCol = col - col % arena.RegionSize;
+            for (var i = 0; i < arena.RegionSize; i++)
             {
-                for (var j = 0; j < 3; j++)
+                for (var j = 0; j < arena.RegionSize; j++)
                 {
                     int cRow = j + startRow, cCol = i + startCol;
                     if (arena.Model[cCol, cRow].Value == num)

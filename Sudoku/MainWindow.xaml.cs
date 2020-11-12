@@ -10,7 +10,7 @@ namespace Sudoku
         public MainWindow()
         {
             InitializeComponent();
-            ViewModel = MainViewModel.GetInstance();
+            ViewModel = MainViewModel.Instance;
         }
 
         internal MainViewModel ViewModel

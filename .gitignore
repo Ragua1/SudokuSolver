@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/SudokuWPF/v16
+/Sudoku/bin/Debug/netcoreapp3.1
+/Sudoku/obj
+/Sudoku/Properties/PublishProfiles
