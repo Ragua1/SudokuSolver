@@ -5,22 +5,12 @@ namespace Sudoku
 {
     public partial class MainWindow : Window
     {
-        private MainViewModel _viewModel;
+        private readonly MainViewModel _viewModel;
 
         public MainWindow()
         {
             InitializeComponent();
-            ViewModel = MainViewModel.Instance;
-        }
-
-        internal MainViewModel ViewModel
-        {
-            get => _viewModel;
-            set
-            {
-                _viewModel = value;
-                this.DataContext = value;
-            }
+            DataContext = _viewModel = MainViewModel.Instance;
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
@@ -30,30 +20,30 @@ namespace Sudoku
 
         private void New_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel?.NewGame();
+            _viewModel?.NewGame();
         }
 
         private async void Solve_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel != null)
+            if (_viewModel != null)
             {
-                await ViewModel.SolveGameAsync().ConfigureAwait(true);
+                await _viewModel.SolveGameAsync().ConfigureAwait(true);
             }
         }
 
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel != null)
+            if (_viewModel != null)
             {
-                await ViewModel.SaveGameAsync().ConfigureAwait(true);
+                await _viewModel.SaveGameAsync().ConfigureAwait(true);
             }
         }
 
         private async void Load_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel != null)
+            if (_viewModel != null)
             {
-                await ViewModel.LoadGameAsync().ConfigureAwait(true);
+                await _viewModel.LoadGameAsync().ConfigureAwait(true);
             }
         }
     }

@@ -61,12 +61,9 @@ namespace SudokuSimply
                         Style = currentStyle
                     };
                     
-                    textBox.SetBinding(TextBox.TextProperty, new Binding
+                    textBox.SetBinding(TextBox.TextProperty, new Binding($"{MainViewModel.CellsPropertyName}[{i * Constants.ORIG_SUDOKU_GRID_SIZE + j}].{CellClass.ValuePropertyName}")
                     {
-                        Path = new PropertyPath($"{MainViewModel.CellsPropertyName}[{i * Constants.ORIG_SUDOKU_GRID_SIZE + j}].{CellClass.ValuePropertyName}"),
                         Converter = converter,
-                        Mode = BindingMode.TwoWay,
-                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
                     });
 
                     textBox.SetValue(Grid.RowProperty, i);
