@@ -44,7 +44,7 @@ namespace SudokuSimply.Solvers
                 var values = Enumerable.Range(Constants.ORIG_SUDOKU_MIN_VALUE, Constants.ORIG_SUDOKU_MAX_VALUE).ToList();
                 while (values.Any())
                 {
-                    var num = (byte) values[_rand.Next(values.Count)];
+                    var num = values[_rand.Next(values.Count)];
 
                     // check value possibility
                     if (CheckModel(arena, row, col, num))

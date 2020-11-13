@@ -24,7 +24,6 @@ namespace SudokuSimply.ViewModels
                 if (_arena != value)
                 {
                     _arena = value;
-                    //OnPropertyChanged();
                     OnPropertyChanged(nameof(Cells));
                     OnPropertyChanged(nameof(IsGameEnabled));
                 }

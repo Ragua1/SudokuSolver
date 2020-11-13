@@ -11,27 +11,14 @@ namespace Sudoku.Solvers
     {
         private static readonly Random _rand = new Random();
         
-        public async Task<bool> ResolveAsync(IArena arena)
+        public Task<bool> ResolveAsync(IArena arena)
         {
-            var checkTask = Task.Run(() => !CheckModel(arena));
-            var solveTask = Task.Run(() => SolveSudoku(arena, 0, 0));
-
-            if (await checkTask.ConfigureAwait(false))
-            {
-                return false;
-            }
-
-            if (await solveTask.ConfigureAwait(false))
-            {
-                return true;
-            }
-
-            return false;
+            return Task.Run(() => CheckModel(arena) && SolveSudoku(arena, 0, 0));
         }
 
         private static bool SolveSudoku(IArena arena, int row, int col)
         {
-            Thread.Sleep(1);
+            //Thread.Sleep(1);
             while (true)
             {
                 // avoid backtracking
