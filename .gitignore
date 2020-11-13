@@ -6,3 +6,6 @@
 /Sudoku/bin/Debug/netcoreapp3.1
 /Sudoku/obj
 /Sudoku/Properties/PublishProfiles
+/SudokuSimply/bin/Debug/netcoreapp3.1
+/SudokuSimply/obj
+*.user

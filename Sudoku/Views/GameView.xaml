@@ -66,7 +66,8 @@
                 Text="{Binding Path=Value, Mode=TwoWay, Converter={StaticResource CellConverter}}" />
         </DataTemplate>
     </UserControl.Resources>
-    <Grid>
+    <Grid
+        x:Name="GridCells">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
@@ -91,418 +92,410 @@
         </Grid.ColumnDefinitions>
 
         <ContentControl
-            Grid.Column="0"
             Grid.Row="0"
+            Grid.Column="0"
             Content="{Binding Path=Cells[0]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
+            Grid.Row="0"
             Grid.Column="1"
-            Grid.Row="0"
-            Content="{Binding Path=Cells[9]}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-            Grid.Column="2"
-            Grid.Row="0"
-            Content="{Binding Path=Cells[18]}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-            Grid.Column="0"
-            Grid.Row="1"
             Content="{Binding Path=Cells[1]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-            Grid.Column="1"
+            Grid.Row="0"
+            Grid.Column="2"
+            Content="{Binding Path=Cells[2]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="0"
+            Grid.Column="3"
+            Content="{Binding Path=Cells[3]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="0"
+            Grid.Column="4"
+            Content="{Binding Path=Cells[4]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="0"
+            Grid.Column="5"
+            Content="{Binding Path=Cells[5]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="0"
+            Grid.Column="6"
+            Content="{Binding Path=Cells[6]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="0"
+            Grid.Column="7"
+            Content="{Binding Path=Cells[7]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="0"
+            Grid.Column="8"
+            Content="{Binding Path=Cells[8]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
             Grid.Row="1"
+            Grid.Column="0"
+            Content="{Binding Path=Cells[9]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="1"
             Content="{Binding Path=Cells[10]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-            Grid.Column="2"
             Grid.Row="1"
+            Grid.Column="2"
+            Content="{Binding Path=Cells[11]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="3"
+            Content="{Binding Path=Cells[12]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="4"
+            Content="{Binding Path=Cells[13]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="5"
+            Content="{Binding Path=Cells[14]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="6"
+            Content="{Binding Path=Cells[15]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="7"
+            Content="{Binding Path=Cells[16]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="1"
+            Grid.Column="8"
+            Content="{Binding Path=Cells[17]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="2"
+            Grid.Column="0"
+            Content="{Binding Path=Cells[18]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="2"
+            Grid.Column="1"
             Content="{Binding Path=Cells[19]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-            Grid.Column="0"
             Grid.Row="2"
-            Content="{Binding Path=Cell02}"
+            Grid.Column="2"
+            Content="{Binding Path=Cells[20]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-            Grid.Column="1"
             Grid.Row="2"
-            Content="{Binding Path=Cell12}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Column="3"
+            Content="{Binding Path=Cells[21]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
-            Grid.Column="2"
             Grid.Row="2"
-            Content="{Binding Path=Cell22}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-
-        <ContentControl
-            Grid.Column="3"
-            Grid.Row="0"
-            Content="{Binding Path=Cell30}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
             Grid.Column="4"
-            Grid.Row="0"
-            Content="{Binding Path=Cell40}"
+            Content="{Binding Path=Cells[22]}"
             ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
-            Grid.Column="5"
-            Grid.Row="0"
-            Content="{Binding Path=Cell50}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="3"
-            Grid.Row="1"
-            Content="{Binding Path=Cell31}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="4"
-            Grid.Row="1"
-            Content="{Binding Path=Cell41}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="5"
-            Grid.Row="1"
-            Content="{Binding Path=Cell51}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="3"
             Grid.Row="2"
-            Content="{Binding Path=Cell32}"
+            Grid.Column="5"
+            Content="{Binding Path=Cells[23]}"
             ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
-            Grid.Column="4"
             Grid.Row="2"
-            Content="{Binding Path=Cell42}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
+            Grid.Column="6"
+            Content="{Binding Path=Cells[24]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-            Grid.Column="5"
             Grid.Row="2"
-            Content="{Binding Path=Cell52}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-
+            Grid.Column="7"
+            Content="{Binding Path=Cells[25]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-                Grid.Column="6"
-                Grid.Row="0"
-                Content="{Binding Path=Cell60}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Row="2"
+            Grid.Column="8"
+            Content="{Binding Path=Cells[26]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-                Grid.Column="7"
-                Grid.Row="0"
-                Content="{Binding Path=Cell70}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-                Grid.Column="8"
-                Grid.Row="0"
-                Content="{Binding Path=Cell80}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-                Grid.Column="6"
-                Grid.Row="1"
-                Content="{Binding Path=Cell61}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-                Grid.Column="7"
-                Grid.Row="1"
-                Content="{Binding Path=Cell71}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-                Grid.Column="8"
-                Grid.Row="1"
-                Content="{Binding Path=Cell81}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-                Grid.Column="6"
-                Grid.Row="2"
-                Content="{Binding Path=Cell62}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-                Grid.Column="7"
-                Grid.Row="2"
-                Content="{Binding Path=Cell72}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-                Grid.Column="8"
-                Grid.Row="2"
-                Content="{Binding Path=Cell82}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-
-        <ContentControl
-            Grid.Column="0"
             Grid.Row="3"
-            Content="{Binding Path=Cell03}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="1"
-            Grid.Row="3"
-            Content="{Binding Path=Cell13}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="2"
-            Grid.Row="3"
-            Content="{Binding Path=Cell23}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
             Grid.Column="0"
-            Grid.Row="4"
-            Content="{Binding Path=Cell04}"
+            Content="{Binding Path=Cells[27]}"
             ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
-            Grid.Column="1"
-            Grid.Row="4"
-            Content="{Binding Path=Cell14}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="2"
-            Grid.Row="4"
-            Content="{Binding Path=Cell24}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="0"
-            Grid.Row="5"
-            Content="{Binding Path=Cell05}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="1"
-            Grid.Row="5"
-            Content="{Binding Path=Cell15}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="2"
-            Grid.Row="5"
-            Content="{Binding Path=Cell25}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-
-        <ContentControl
-            Grid.Column="3"
             Grid.Row="3"
-            Content="{Binding Path=Cell33}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Column="1"
+            Content="{Binding Path=Cells[28]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
-            Grid.Column="4"
             Grid.Row="3"
-            Content="{Binding Path=Cell43}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Column="2"
+            Content="{Binding Path=Cells[29]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
-            Grid.Column="5"
             Grid.Row="3"
-            Content="{Binding Path=Cell53}"
+            Grid.Column="3"
+            Content="{Binding Path=Cells[30]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-            Grid.Column="3"
+            Grid.Row="3"
+            Grid.Column="4"
+            Content="{Binding Path=Cells[31]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="3"
+            Grid.Column="5"
+            Content="{Binding Path=Cells[32]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="3"
+            Grid.Column="6"
+            Content="{Binding Path=Cells[33]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="3"
+            Grid.Column="7"
+            Content="{Binding Path=Cells[34]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="3"
+            Grid.Column="8"
+            Content="{Binding Path=Cells[35]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
             Grid.Row="4"
-            Content="{Binding Path=Cell34}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Column="0"
+            Content="{Binding Path=Cells[36]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
-            Grid.Column="4"
             Grid.Row="4"
-            Content="{Binding Path=Cell44}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Column="1"
+            Content="{Binding Path=Cells[37]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
-            Grid.Column="5"
             Grid.Row="4"
-            Content="{Binding Path=Cell54}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-            Grid.Column="3"
-            Grid.Row="5"
-            Content="{Binding Path=Cell35}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-            Grid.Column="4"
-            Grid.Row="5"
-            Content="{Binding Path=Cell45}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-            Grid.Column="5"
-            Grid.Row="5"
-            Content="{Binding Path=Cell55}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-
-        <ContentControl
-                Grid.Column="6"
-                Grid.Row="3"
-                Content="{Binding Path=Cell63}"
-                ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-                Grid.Column="7"
-                Grid.Row="3"
-                Content="{Binding Path=Cell73}"
-                ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-                Grid.Column="8"
-                Grid.Row="3"
-                Content="{Binding Path=Cell83}"
-                ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-                Grid.Column="6"
-                Grid.Row="4"
-                Content="{Binding Path=Cell64}"
-                ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-                Grid.Column="7"
-                Grid.Row="4"
-                Content="{Binding Path=Cell74}"
-                ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-                Grid.Column="8"
-                Grid.Row="4"
-                Content="{Binding Path=Cell84}"
-                ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-                Grid.Column="6"
-                Grid.Row="5"
-                Content="{Binding Path=Cell65}"
-                ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-                Grid.Column="7"
-                Grid.Row="5"
-                Content="{Binding Path=Cell75}"
-                ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-                Grid.Column="8"
-                Grid.Row="5"
-                Content="{Binding Path=Cell85}"
-                ContentTemplate="{StaticResource CellDataTemplate}" />
-
-        <ContentControl
-            Grid.Column="0"
-            Grid.Row="6"
-            Content="{Binding Path=Cell06}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
-            Grid.Column="1"
-            Grid.Row="6"
-            Content="{Binding Path=Cell16}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-        <ContentControl
             Grid.Column="2"
-            Grid.Row="6"
-            Content="{Binding Path=Cell26}"
+            Content="{Binding Path=Cells[38]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="4"
+            Grid.Column="3"
+            Content="{Binding Path=Cells[39]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
+            Grid.Row="4"
+            Grid.Column="4"
+            Content="{Binding Path=Cells[40]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="4"
+            Grid.Column="5"
+            Content="{Binding Path=Cells[41]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="4"
+            Grid.Column="6"
+            Content="{Binding Path=Cells[42]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="4"
+            Grid.Column="7"
+            Content="{Binding Path=Cells[43]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="4"
+            Grid.Column="8"
+            Content="{Binding Path=Cells[44]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="5"
             Grid.Column="0"
-            Grid.Row="7"
-            Content="{Binding Path=Cell07}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Content="{Binding Path=Cells[45]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
+            Grid.Row="5"
             Grid.Column="1"
-            Grid.Row="7"
-            Content="{Binding Path=Cell17}"
-            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Content="{Binding Path=Cells[46]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
+            Grid.Row="5"
             Grid.Column="2"
-            Grid.Row="7"
-            Content="{Binding Path=Cell27}"
+            Content="{Binding Path=Cells[47]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="5"
+            Grid.Column="3"
+            Content="{Binding Path=Cells[48]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
+            Grid.Row="5"
+            Grid.Column="4"
+            Content="{Binding Path=Cells[49]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="5"
+            Grid.Column="5"
+            Content="{Binding Path=Cells[50]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="5"
+            Grid.Column="6"
+            Content="{Binding Path=Cells[51]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="5"
+            Grid.Column="7"
+            Content="{Binding Path=Cells[52]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="5"
+            Grid.Column="8"
+            Content="{Binding Path=Cells[53]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="6"
             Grid.Column="0"
-            Grid.Row="8"
-            Content="{Binding Path=Cell08}"
+            Content="{Binding Path=Cells[54]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
+            Grid.Row="6"
             Grid.Column="1"
-            Grid.Row="8"
-            Content="{Binding Path=Cell18}"
+            Content="{Binding Path=Cells[55]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
+            Grid.Row="6"
             Grid.Column="2"
-            Grid.Row="8"
-            Content="{Binding Path=Cell28}"
+            Content="{Binding Path=Cells[56]}"
             ContentTemplate="{StaticResource CellDataBlueTemplate}" />
-
         <ContentControl
-            Grid.Column="3"
             Grid.Row="6"
-            Content="{Binding Path=Cell36}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="4"
-            Grid.Row="6"
-            Content="{Binding Path=Cell46}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
-            Grid.Column="5"
-            Grid.Row="6"
-            Content="{Binding Path=Cell56}"
-            ContentTemplate="{StaticResource CellDataTemplate}" />
-        <ContentControl
             Grid.Column="3"
-            Grid.Row="7"
-            Content="{Binding Path=Cell37}"
+            Content="{Binding Path=Cells[57]}"
             ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
+            Grid.Row="6"
             Grid.Column="4"
-            Grid.Row="7"
-            Content="{Binding Path=Cell47}"
+            Content="{Binding Path=Cells[58]}"
             ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
+            Grid.Row="6"
             Grid.Column="5"
-            Grid.Row="7"
-            Content="{Binding Path=Cell57}"
+            Content="{Binding Path=Cells[59]}"
             ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
+            Grid.Row="6"
+            Grid.Column="6"
+            Content="{Binding Path=Cells[60]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="6"
+            Grid.Column="7"
+            Content="{Binding Path=Cells[61]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="6"
+            Grid.Column="8"
+            Content="{Binding Path=Cells[62]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="7"
+            Grid.Column="0"
+            Content="{Binding Path=Cells[63]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="7"
+            Grid.Column="1"
+            Content="{Binding Path=Cells[64]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="7"
+            Grid.Column="2"
+            Content="{Binding Path=Cells[65]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="7"
             Grid.Column="3"
-            Grid.Row="8"
-            Content="{Binding Path=Cell38}"
+            Content="{Binding Path=Cells[66]}"
             ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
+            Grid.Row="7"
             Grid.Column="4"
-            Grid.Row="8"
-            Content="{Binding Path=Cell48}"
+            Content="{Binding Path=Cells[67]}"
             ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
+            Grid.Row="7"
             Grid.Column="5"
-            Grid.Row="8"
-            Content="{Binding Path=Cell58}"
+            Content="{Binding Path=Cells[68]}"
             ContentTemplate="{StaticResource CellDataTemplate}" />
-
         <ContentControl
-                Grid.Column="6"
-                Grid.Row="6"
-                Content="{Binding Path=Cell66}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Row="7"
+            Grid.Column="6"
+            Content="{Binding Path=Cells[69]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-                Grid.Column="7"
-                Grid.Row="6"
-                Content="{Binding Path=Cell76}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Row="7"
+            Grid.Column="7"
+            Content="{Binding Path=Cells[70]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-                Grid.Column="8"
-                Grid.Row="6"
-                Content="{Binding Path=Cell86}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Row="7"
+            Grid.Column="8"
+            Content="{Binding Path=Cells[71]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-                Grid.Column="6"
-                Grid.Row="7"
-                Content="{Binding Path=Cell67}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Row="8"
+            Grid.Column="0"
+            Content="{Binding Path=Cells[72]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-                Grid.Column="7"
-                Grid.Row="7"
-                Content="{Binding Path=Cell77}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Row="8"
+            Grid.Column="1"
+            Content="{Binding Path=Cells[73]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-                Grid.Column="8"
-                Grid.Row="7"
-                Content="{Binding Path=Cell87}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Row="8"
+            Grid.Column="2"
+            Content="{Binding Path=Cells[74]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
         <ContentControl
-                Grid.Column="6"
-                Grid.Row="8"
-                Content="{Binding Path=Cell68}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Row="8"
+            Grid.Column="3"
+            Content="{Binding Path=Cells[75]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
-                Grid.Column="7"
-                Grid.Row="8"
-                Content="{Binding Path=Cell78}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Row="8"
+            Grid.Column="4"
+            Content="{Binding Path=Cells[76]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
         <ContentControl
-                Grid.Column="8"
-                Grid.Row="8"
-                Content="{Binding Path=Cell88}"
-                ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+            Grid.Row="8"
+            Grid.Column="5"
+            Content="{Binding Path=Cells[77]}"
+            ContentTemplate="{StaticResource CellDataTemplate}" />
+        <ContentControl
+            Grid.Row="8"
+            Grid.Column="6"
+            Content="{Binding Path=Cells[78]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="8"
+            Grid.Column="7"
+            Content="{Binding Path=Cells[79]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
+        <ContentControl
+            Grid.Row="8"
+            Grid.Column="8"
+            Content="{Binding Path=Cells[80]}"
+            ContentTemplate="{StaticResource CellDataBlueTemplate}" />
 
     </Grid>
 </UserControl>

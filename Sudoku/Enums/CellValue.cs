@@ -1,6 +1,6 @@
 ﻿namespace Sudoku.Enums
 {
-    public enum CellValue
+    public enum CellValue : byte
     {
         None = 0,
         V1,

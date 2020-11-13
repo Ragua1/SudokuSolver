@@ -1,14 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Sudoku.Base;
-using Sudoku.Enums;
-using Sudoku.Interfaces;
-using Sudoku.Solvers;
+using SudokuSimply.Base;
+using SudokuSimply.Interfaces;
+using SudokuSimply.Solvers;
 
-namespace Sudoku.DataClasses
+namespace SudokuSimply.DataClasses
 {
     public class SudokuArena : IArena
     {
@@ -17,14 +14,12 @@ namespace Sudoku.DataClasses
         public int GridSize => Constants.ORIG_SUDOKU_GRID_SIZE;
         public int RegionSize => Constants.ORIG_SUDOKU_REGION_SIZE;
 
-        public CellClass[,] Model { get; set; }
-        public CellClass[] Cells => Model.Cast<CellClass>().ToArray();
+        public CellClass[,] Model { get; private set; }
 
         public SudokuArena()
         {
             Model = new CellClass[GridSize, GridSize];
-
-
+            
             for (var i = 0; i < GridSize; i++)
             {
                 for (var j = 0; j < GridSize; j++)
@@ -34,12 +29,12 @@ namespace Sudoku.DataClasses
             }
         }
 
-        public CellValue GetValue(int row, int col)
+        public int GetValue(int row, int col)
         {
             return Model[row, col].Value;
         }
 
-        public void SetValue(int row, int col, CellValue value = CellValue.None)
+        public void SetValue(int row, int col, int value = Constants.ORIG_SUDOKU_EMPTY_VALUE)
         {
             Model[row, col].Value = value;
         }
@@ -79,14 +74,7 @@ namespace Sudoku.DataClasses
             {
                 for (var j = 0; j < GridSize; j++)
                 {
-                    if (Model[i, j].Value == CellValue.None)
-                    {
-                        builder.Append(',');
-                    }
-                    else
-                    {
-                        builder.Append($"{(short) Model[i, j].Value},");
-                    }
+                    builder.Append($"{Common.GetTextValue(Model[i, j].Value)},");
                 }
             }
 
@@ -120,9 +108,7 @@ namespace Sudoku.DataClasses
             {
                 for (var j = 0; j < GridSize; j++)
                 {
-                    Model[i, j].Value = Enum.TryParse(data[d++], out CellValue value)
-                        ? value
-                        : CellValue.None;
+                    Model[i, j].Value = Common.GetCellValue(data[d++]);
                 }
             }
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Win32;
-using Sudoku.Enums;
 
-namespace Sudoku.Base
+namespace SudokuSimply.Base
 {
     public static class Common
     {
@@ -31,6 +30,22 @@ namespace Sudoku.Base
             }
 
             return fileDialog.ShowDialog() == true ? fileDialog.FileName : null;
+        }
+
+        public static int GetCellValue(string text)
+        {
+            return int.TryParse(text, out var cellValue)
+                   && cellValue >= Constants.ORIG_SUDOKU_MIN_VALUE 
+                   && cellValue <= Constants.ORIG_SUDOKU_MAX_VALUE
+                ? cellValue
+                : Constants.ORIG_SUDOKU_EMPTY_VALUE;
+        }
+
+        public static string GetTextValue(int cellValue)
+        {
+            return cellValue >= Constants.ORIG_SUDOKU_MIN_VALUE && cellValue <= Constants.ORIG_SUDOKU_MAX_VALUE
+                ? $"{cellValue}"
+                : "";
         }
     }
 }

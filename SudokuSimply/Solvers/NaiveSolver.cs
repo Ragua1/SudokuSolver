@@ -1,40 +1,23 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Sudoku.Enums;
-using Sudoku.Interfaces;
+using SudokuSimply.Base;
+using SudokuSimply.Interfaces;
 
-namespace Sudoku.Solvers
+namespace SudokuSimply.Solvers
 {
     public class NaiveSolver : ISolver
     {
         private static readonly Random _rand = new Random();
-
-        public IArena Solution { get; set; }
-
-        public async Task<bool> ResolveAsync(IArena arena)
+        
+        public Task<bool> ResolveAsync(IArena arena)
         {
-            var checkTask = Task.Run(() => !CheckModel(arena));
-            var solveTask = Task.Run(() => SolveSudoku(arena, 0, 0));
-
-            if (await checkTask.ConfigureAwait(false))
-            {
-                return false;
-            }
-
-            if (await solveTask.ConfigureAwait(false))
-            {
-                Solution = arena;
-                return true;
-            }
-
-            return false;
+            return Task.Run(() => CheckModel(arena) && SolveSudoku(arena, 0, 0));
         }
 
         private static bool SolveSudoku(IArena arena, int row, int col)
         {
-            Thread.Sleep(1);
+            //Thread.Sleep(1);
             while (true)
             {
                 // avoid backtracking
@@ -51,16 +34,17 @@ namespace Sudoku.Solvers
                 }
 
                 // move next if value founded
-                if (arena.GetValue(row, col) != CellValue.None)
+                if (arena.GetValue(row, col) != Constants.ORIG_SUDOKU_EMPTY_VALUE)
                 {
                     col += 1;
                     continue;
                 }
 
-                var values = Enum.GetValues(typeof(CellValue)).Cast<CellValue>().Where(e => e > CellValue.None).ToList();
+
+                var values = Enumerable.Range(Constants.ORIG_SUDOKU_MIN_VALUE, Constants.ORIG_SUDOKU_MAX_VALUE).ToList();
                 while (values.Any())
                 {
-                    var num = values[_rand.Next(values.Count)];
+                    var num = (byte) values[_rand.Next(values.Count)];
 
                     // check value possibility
                     if (CheckModel(arena, row, col, num))
@@ -103,7 +87,7 @@ namespace Sudoku.Solvers
         }
 
         // check cell
-        private static bool CheckModel(IArena arena, int row, int col, CellValue num)
+        private static bool CheckModel(IArena arena, int row, int col, int num)
         {
             // check row for same value
             for (var x = 0; x < arena.GridSize; x++)

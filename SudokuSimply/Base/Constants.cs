@@ -1,4 +1,4 @@
-﻿namespace Sudoku.Base
+﻿namespace SudokuSimply.Base
 {
     public static class Constants
     {

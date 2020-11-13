@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Sudoku.Base;
 using Sudoku.DataClasses;
+using Sudoku.Enums;
 
 namespace Sudoku.Interfaces
 {
@@ -11,6 +12,9 @@ namespace Sudoku.Interfaces
 
         CellClass[,] Model { get; set; }
         CellClass[] Cells { get; }
+
+        CellValue GetValue(int row, int col);
+        void SetValue(int row, int col, CellValue value = CellValue.None);
 
         IArena Clone();
         Task<bool> SolveAsync();
