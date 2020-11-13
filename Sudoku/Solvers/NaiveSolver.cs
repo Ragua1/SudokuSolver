@@ -10,9 +10,7 @@ namespace Sudoku.Solvers
     public class NaiveSolver : ISolver
     {
         private static readonly Random _rand = new Random();
-
-        public IArena Solution { get; set; }
-
+        
         public async Task<bool> ResolveAsync(IArena arena)
         {
             var checkTask = Task.Run(() => !CheckModel(arena));
@@ -25,7 +23,6 @@ namespace Sudoku.Solvers
 
             if (await solveTask.ConfigureAwait(false))
             {
-                Solution = arena;
                 return true;
             }
 

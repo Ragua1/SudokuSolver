@@ -74,7 +74,7 @@ namespace SudokuSimply.DataClasses
             {
                 for (var j = 0; j < GridSize; j++)
                 {
-                    builder.Append($"{Common.GetTextValue(Model[i, j].Value)},");
+                    builder.Append($"{Common.GetTextValue(GetValue(i, j))},");
                 }
             }
 
@@ -108,7 +108,7 @@ namespace SudokuSimply.DataClasses
             {
                 for (var j = 0; j < GridSize; j++)
                 {
-                    Model[i, j].Value = Common.GetCellValue(data[d++]);
+                    SetValue(i, j, Common.GetCellValue(data[d++]));
                 }
             }
 

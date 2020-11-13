@@ -18,7 +18,6 @@ namespace Sudoku.DataClasses
         public int RegionSize => Constants.ORIG_SUDOKU_REGION_SIZE;
 
         public CellClass[,] Model { get; set; }
-        public CellClass[] Cells => Model.Cast<CellClass>().ToArray();
 
         public SudokuArena()
         {
@@ -79,14 +78,7 @@ namespace Sudoku.DataClasses
             {
                 for (var j = 0; j < GridSize; j++)
                 {
-                    if (Model[i, j].Value == CellValue.None)
-                    {
-                        builder.Append(',');
-                    }
-                    else
-                    {
-                        builder.Append($"{(short) Model[i, j].Value},");
-                    }
+                    builder.Append($"{Common.GetTextValue(GetValue(i, j))},");
                 }
             }
 
@@ -120,9 +112,7 @@ namespace Sudoku.DataClasses
             {
                 for (var j = 0; j < GridSize; j++)
                 {
-                    Model[i, j].Value = Enum.TryParse(data[d++], out CellValue value)
-                        ? value
-                        : CellValue.None;
+                    SetValue(i, j, Common.GetCellValue(data[d++]));
                 }
             }
 

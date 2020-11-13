@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Sudoku.Base;
 using Sudoku.DataClasses;
 using Sudoku.Interfaces;
@@ -9,7 +10,7 @@ namespace Sudoku.ViewModels
     {
         private readonly IArena _arena;
 
-        public CellClass[] Cells => _arena.Cells;
+        public CellClass[] Cells => _arena.Model.Cast<CellClass>().ToArray();
 
         public GameViewModel(IArena arena = null)
         {
