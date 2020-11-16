@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using SudokuSimply.Base;
 using SudokuSimply.Interfaces;
@@ -16,8 +17,8 @@ namespace SudokuSimply.Solvers
         }
 
         private static bool SolveSudoku(IArena arena, int row, int col)
-        {
-            //Thread.Sleep(1);
+        { 
+            //Thread.Sleep(10);
             while (true)
             {
                 // avoid backtracking

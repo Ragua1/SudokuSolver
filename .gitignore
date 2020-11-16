@@ -9,3 +9,7 @@
 /SudokuSimply/bin/Debug/netcoreapp3.1
 /SudokuSimply/obj
 *.user
+/Sudoku/bin/Release/netcoreapp3.1
+/.vs/SudokuWPF/DesignTimeBuild
+/SudokuSimply/bin
+/SudokuSimply/Properties/PublishProfiles

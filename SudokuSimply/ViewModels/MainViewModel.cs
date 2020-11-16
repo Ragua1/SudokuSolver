@@ -10,6 +10,7 @@ namespace SudokuSimply.ViewModels
     {
         private string _statusMsg;
         private IArena _arena;
+        private object _lock = new object();
 
         public static readonly MainViewModel Instance = new MainViewModel();
         public static string CellsPropertyName => nameof(Cells);
@@ -24,8 +25,11 @@ namespace SudokuSimply.ViewModels
                 if (_arena != value)
                 {
                     _arena = value;
-                    OnPropertyChanged(nameof(Cells));
                     OnPropertyChanged(nameof(IsGameEnabled));
+                    if (value != null)
+                    {
+                        OnPropertyChanged(nameof(Cells));
+                    }
                 }
             }
         }
@@ -46,32 +50,41 @@ namespace SudokuSimply.ViewModels
 
         internal void NewGame()
         {
-            Arena = new SudokuArena();
+            SetArena(GetArena(true));
             StatusMsg = "New game.";
         }
 
         internal async Task SolveGameAsync()
         {
-            if (Arena != null)
+            var arena = GetArena();
+            if (arena != null)
             {
-                StatusMsg = "Trying find a solution.";
-                var gameModel = Arena.Clone();
+                SetArena(null);
 
-                if (await gameModel.SolveAsync().ConfigureAwait(true))
+                StatusMsg = "Trying find a solution.";
+                var newArena = arena.Clone();
+
+                if (await newArena.SolveAsync().ConfigureAwait(true))
                 {
                     StatusMsg = "Game solved.";
-                    Arena = gameModel;
+                    arena = newArena;
                 }
                 else
                 {
                     StatusMsg = "Game cannot be solved.";
+                }
+
+                if (GetArena() == null)
+                {
+                    SetArena(arena);
                 }
             }
         }
 
         internal async Task SaveGameAsync()
         {
-            if (Arena != null)
+            var arena = GetArena();
+            if (arena != null)
             {
                 StatusMsg = "Select file.";
 
@@ -83,15 +96,37 @@ namespace SudokuSimply.ViewModels
 
         internal async Task LoadGameAsync()
         {
-            NewGame();
+            var arena = GetArena(true);
+            StatusMsg = "Select file.";
 
-            if (Arena != null)
+            var res = await arena.LoadAsync().ConfigureAwait(true);
+            
+            if (res)
             {
-                StatusMsg = "Select file.";
+                SetArena(arena);
+                StatusMsg = "Game loaded.";
+            }
+            else
+            {
+                StatusMsg = "Game cannot be loaded.";
+            }
+        }
 
-                StatusMsg = await Arena.LoadAsync().ConfigureAwait(true) 
-                        ? "Game loaded." 
-                        : "Game cannot be loaded.";
+        private IArena GetArena(bool @new = false)
+        {
+            lock (_lock)
+            {
+                return @new 
+                    ? new SudokuArena() 
+                    : Arena;
+            }
+        }
+
+        private void SetArena(IArena arena)
+        {
+            lock (_lock)
+            {
+                Arena = arena;
             }
         }
     }
