@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using SudokuSimply.Base;
 
 namespace SudokuSimply.Interfaces
@@ -14,8 +15,8 @@ namespace SudokuSimply.Interfaces
         void SetValue(int row, int col, int value = Constants.ORIG_SUDOKU_EMPTY_VALUE);
 
         IArena Clone();
-        Task<bool> SolveAsync();
-        Task<bool> SaveAsync();
-        Task<bool> LoadAsync();
+        Task<bool> SolveAsync(CancellationToken token = default);
+        Task<bool> SaveAsync(CancellationToken token = default);
+        Task<bool> LoadAsync(CancellationToken token = default);
     }
 }

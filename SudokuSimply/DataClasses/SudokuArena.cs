@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using SudokuSimply.Base;
 using SudokuSimply.Interfaces;
@@ -54,12 +55,12 @@ namespace SudokuSimply.DataClasses
             return clone;
         }
 
-        public Task<bool> SolveAsync()
+        public Task<bool> SolveAsync(CancellationToken token = default)
         {
-            return _solver.ResolveAsync(this);
+            return _solver.ResolveAsync(this, token);
         }
 
-        public async Task<bool> SaveAsync()
+        public async Task<bool> SaveAsync(CancellationToken token = default)
         {
             var filepath = Common.SelectFile(true);
 
@@ -80,12 +81,12 @@ namespace SudokuSimply.DataClasses
 
             builder.Length--;
 
-            await File.WriteAllTextAsync(filepath, builder.ToString()).ConfigureAwait(false);
+            await File.WriteAllTextAsync(filepath, builder.ToString(), token).ConfigureAwait(false);
 
             return true;
         }
 
-        public async Task<bool> LoadAsync()
+        public async Task<bool> LoadAsync(CancellationToken token = default)
         {
             var filepath = Common.SelectFile();
 
@@ -94,7 +95,7 @@ namespace SudokuSimply.DataClasses
                 return false;
             }
 
-            var text = await File.ReadAllTextAsync(filepath).ConfigureAwait(false);
+            var text = await File.ReadAllTextAsync(filepath, token).ConfigureAwait(false);
 
             var data = text?.Split(',');
 

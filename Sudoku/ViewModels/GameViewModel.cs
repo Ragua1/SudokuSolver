@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Sudoku.Base;
 using Sudoku.DataClasses;
@@ -17,19 +18,19 @@ namespace Sudoku.ViewModels
             this._arena = arena ?? new SudokuArena();
         }
 
-        internal Task<bool> SolveAsync()
+        internal Task<bool> SolveAsync(CancellationToken token = default)
         {
-            return _arena.SolveAsync();
+            return _arena.SolveAsync(token);
         }
 
-        internal Task<bool> SaveAsync()
+        internal Task<bool> SaveAsync(CancellationToken token = default)
         {
-            return _arena.SaveAsync();
+            return _arena.SaveAsync(token);
         }
 
-        internal Task<bool> LoadAsync()
+        internal Task<bool> LoadAsync(CancellationToken token = default)
         {
-            return _arena.LoadAsync();
+            return _arena.LoadAsync(token);
         }
 
         internal GameViewModel Clone()

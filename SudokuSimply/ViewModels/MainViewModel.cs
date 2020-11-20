@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using SudokuSimply.Base;
 using SudokuSimply.DataClasses;
@@ -10,6 +11,7 @@ namespace SudokuSimply.ViewModels
     {
         private string _statusMsg;
         private IArena _arena;
+        private CancellationTokenSource _tokenSource;
         private object _lock = new object();
 
         public static readonly MainViewModel Instance = new MainViewModel();
@@ -50,6 +52,7 @@ namespace SudokuSimply.ViewModels
 
         internal void NewGame()
         {
+            ResetToken(false);
             SetArena(GetArena(true));
             StatusMsg = "New game.";
         }
@@ -59,12 +62,13 @@ namespace SudokuSimply.ViewModels
             var arena = GetArena();
             if (arena != null)
             {
+                ResetToken();
                 SetArena(null);
 
                 StatusMsg = "Trying find a solution.";
                 var newArena = arena.Clone();
 
-                if (await newArena.SolveAsync().ConfigureAwait(true))
+                if (await newArena.SolveAsync(_tokenSource.Token).ConfigureAwait(true))
                 {
                     StatusMsg = "Game solved.";
                     arena = newArena;
@@ -86,9 +90,10 @@ namespace SudokuSimply.ViewModels
             var arena = GetArena();
             if (arena != null)
             {
+                ResetToken();
                 StatusMsg = "Select file.";
 
-                StatusMsg = await Arena.SaveAsync().ConfigureAwait(true)
+                StatusMsg = await Arena.SaveAsync(_tokenSource.Token).ConfigureAwait(true)
                     ? "Game saved."
                     : "Game cannot be saved.";
             }
@@ -96,10 +101,11 @@ namespace SudokuSimply.ViewModels
 
         internal async Task LoadGameAsync()
         {
+            ResetToken();
             var arena = GetArena(true);
             StatusMsg = "Select file.";
 
-            var res = await arena.LoadAsync().ConfigureAwait(true);
+            var res = await arena.LoadAsync(_tokenSource.Token).ConfigureAwait(true);
             
             if (res)
             {
@@ -110,6 +116,13 @@ namespace SudokuSimply.ViewModels
             {
                 StatusMsg = "Game cannot be loaded.";
             }
+        }
+
+        private void ResetToken(bool newToken = true)
+        {
+            _tokenSource?.Cancel();
+
+            _tokenSource = newToken ? new CancellationTokenSource() : null;
         }
 
         private IArena GetArena(bool @new = false)

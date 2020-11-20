@@ -11,9 +11,9 @@ namespace Sudoku.Solvers
     {
         private static readonly Random _rand = new Random();
         
-        public Task<bool> ResolveAsync(IArena arena)
+        public Task<bool> ResolveAsync(IArena arena, CancellationToken token = default)
         {
-            return Task.Run(() => CheckModel(arena) && SolveSudoku(arena, 0, 0));
+            return Task.Run(() => CheckModel(arena) && SolveSudoku(arena, 0, 0), token);
         }
 
         private static bool SolveSudoku(IArena arena, int row, int col)

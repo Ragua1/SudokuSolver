@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Sudoku.Base;
 
 namespace Sudoku.ViewModels
@@ -7,6 +8,7 @@ namespace Sudoku.ViewModels
     {
         private GameViewModel _currentGameViewModel;
         private string _statusMsg;
+        private CancellationTokenSource _tokenSource;
 
         public static readonly MainViewModel Instance = new MainViewModel();
 
@@ -40,6 +42,7 @@ namespace Sudoku.ViewModels
 
         internal void NewGame()
         {
+            ResetToken(false);
             CurrentGameViewModel = new GameViewModel();
             StatusMsg = "New game.";
         }
@@ -48,10 +51,11 @@ namespace Sudoku.ViewModels
         {
             if (CurrentGameViewModel != null)
             {
+                ResetToken();
                 StatusMsg = "Trying find a solution.";
                 var gameModel = CurrentGameViewModel.Clone();
 
-                if (await gameModel.SolveAsync().ConfigureAwait(true))
+                if (await gameModel.SolveAsync(_tokenSource.Token).ConfigureAwait(true))
                 {
                     StatusMsg = "Game solved.";
                     CurrentGameViewModel = gameModel;
@@ -67,9 +71,10 @@ namespace Sudoku.ViewModels
         {
             if (CurrentGameViewModel != null)
             {
+                ResetToken();
                 StatusMsg = "Select file.";
 
-                StatusMsg = await CurrentGameViewModel.SaveAsync().ConfigureAwait(true)
+                StatusMsg = await CurrentGameViewModel.SaveAsync(_tokenSource.Token).ConfigureAwait(true)
                     ? "Game saved."
                     : "Game cannot be saved.";
             }
@@ -77,16 +82,24 @@ namespace Sudoku.ViewModels
 
         internal async Task LoadGameAsync()
         {
+            ResetToken();
             NewGame();
 
             if (CurrentGameViewModel != null)
             {
                 StatusMsg = "Select file.";
 
-                StatusMsg = await CurrentGameViewModel.LoadAsync().ConfigureAwait(true) 
+                StatusMsg = await CurrentGameViewModel.LoadAsync(_tokenSource.Token).ConfigureAwait(true) 
                         ? "Game loaded." 
                         : "Game cannot be loaded.";
             }
+        }
+
+        private void ResetToken(bool newToken = true)
+        {
+            _tokenSource?.Cancel();
+
+            _tokenSource = newToken ? new CancellationTokenSource() : null;
         }
     }
 }
