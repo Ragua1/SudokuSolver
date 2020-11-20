@@ -54,15 +54,20 @@ namespace Sudoku.ViewModels
                 ResetToken();
                 StatusMsg = "Trying find a solution.";
                 var gameModel = CurrentGameViewModel.Clone();
+                var token = _tokenSource.Token;
 
-                if (await gameModel.SolveAsync(_tokenSource.Token).ConfigureAwait(true))
+                var res = await gameModel.SolveAsync(token).ConfigureAwait(true);
+                if (!token.IsCancellationRequested)
                 {
-                    StatusMsg = "Game solved.";
-                    CurrentGameViewModel = gameModel;
-                }
-                else
-                {
-                    StatusMsg = "Game cannot be solved.";
+                    if (res)
+                    {
+                        StatusMsg = "Game solved.";
+                        CurrentGameViewModel = gameModel;
+                    }
+                    else
+                    {
+                        StatusMsg = "Game cannot be solved.";
+                    }
                 }
             }
         }
@@ -82,11 +87,11 @@ namespace Sudoku.ViewModels
 
         internal async Task LoadGameAsync()
         {
-            ResetToken();
             NewGame();
 
             if (CurrentGameViewModel != null)
             {
+                ResetToken();
                 StatusMsg = "Select file.";
 
                 StatusMsg = await CurrentGameViewModel.LoadAsync(_tokenSource.Token).ConfigureAwait(true) 

@@ -18,7 +18,7 @@ namespace Sudoku.Solvers
 
         private static bool SolveSudoku(IArena arena, int row, int col)
         {
-            //Thread.Sleep(1);
+            //Thread.Sleep(10);
             while (true)
             {
                 // avoid backtracking
